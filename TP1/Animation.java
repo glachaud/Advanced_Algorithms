@@ -4,20 +4,22 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+
 import java.util.Arrays;
 
 
 public class Animation extends Application {
 
-    @Override public void start(Stage stage) {
-        stage.setTitle("Complexity Graph");
-        //defining the axes
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Size of input");
-        //creating the chart
-        final LineChart<Number,Number> lineChart =
-                new LineChart<Number,Number>(xAxis,yAxis);
+  @Override
+  public void start(Stage stage) {
+    stage.setTitle("Complexity Graph");
+    //defining the axes
+    final NumberAxis xAxis = new NumberAxis();
+    final NumberAxis yAxis = new NumberAxis();
+    xAxis.setLabel("Size of input");
+    //creating the chart
+    final LineChart<Number, Number> lineChart =
+            new LineChart<Number, Number>(xAxis, yAxis);
 
         /* Sort comparisons
 
@@ -69,31 +71,32 @@ public class Animation extends Application {
         lineChart.getData().add(series3);
         lineChart.getData().add(series4);
         */
-        lineChart.setTitle("Complexity Graph, min finding");
-        lineChart.setCreateSymbols(false);
-        //defining a series
-        XYChart.Series series = new XYChart.Series();
-        int res[];
-        int val;
-        series.setName("Minimum of an array");
-        for(int i = 1; i < 100000; i+=100) {
-            res = RandomData.generate1d(i, 0, 500);
-            //val = -2;
-            //Arrays.sort(res);
-            long start = System.nanoTime();
-            TP1.minArray(res);
-            long elapsed = (System.nanoTime() - start);
-            series.getData().add(new XYChart.Data(i, elapsed));
-        }
-        Scene scene  = new Scene(lineChart,1000,800);
-        lineChart.getData().add(series);
+    lineChart.setTitle("Complexity Graph, min finding");
+    lineChart.setCreateSymbols(false);
+    //defining a series
+    XYChart.Series series = new XYChart.Series();
+    int res[];
+    int val;
+    series.setName("Minimum of an array");
+    for (int i = 1; i < 100000; i += 100) {
+      res = RandomData.generate1d(i, 0, 500);
+      //val = -2;
+      //Arrays.sort(res);
+      long start = System.nanoTime();
+      TP1.minArray(res);
+      long elapsed = (System.nanoTime() - start);
+      series.getData().add(new XYChart.Data(i, elapsed));
+    }
+    Scene scene = new Scene(lineChart, 1000, 800);
+    lineChart.getData().add(series);
 
 
-        stage.setScene(scene);
-        stage.show();
-    }
-    public static void main(String[] args) {
-        launch(args);
-    }
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  public static void main(String[] args) {
+    launch(args);
+  }
 
 }
