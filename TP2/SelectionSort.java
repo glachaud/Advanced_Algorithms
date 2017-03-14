@@ -5,16 +5,16 @@ public class SelectionSort implements SortStrategy {
   public static void main(String[] args) {
   }
 
-  public void swap(int[] data, int i, int j) {
-    int tmp = data[i];
-    data[i] = data[j];
-    data[j] = tmp;
+  public void swap(int[] arrayToSort, int i, int j) {
+    int tmp = arrayToSort[i];
+    arrayToSort[i] = arrayToSort[j];
+    arrayToSort[j] = tmp;
   }
 
-  public int minimumIndex(int[] data, int begin, int end) {
+  public int minimumIndex(int[] arrayToSort, int begin, int end) {
     int res = begin;
     for (int i = begin; i != end; ++i) {
-      if (data[i] < data[res]) {
+      if (arrayToSort[i] < arrayToSort[res]) {
         res = i;
       }
     }
@@ -22,12 +22,12 @@ public class SelectionSort implements SortStrategy {
   }
 
   @Override
-  public void sort(int[] data) {
-    if (data.length < 2) {
+  public void sort(int[] arrayToSort) {
+    if (arrayToSort.length < 2) {
       return;
     }
-    for (int i = 0; i != data.length - 1; ++i) {
-      this.swap(data, i, minimumIndex(data, i, data.length));
+    for (int i = 0; i != arrayToSort.length - 1; ++i) {
+      this.swap(arrayToSort, i, minimumIndex(arrayToSort, i, arrayToSort.length));
     }
   }
 }

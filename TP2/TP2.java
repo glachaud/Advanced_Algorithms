@@ -28,12 +28,16 @@ public class TP2 {
 
   }
 
-
-  public static int minArray(int[] array) {
-    int min = array[0];
-    for (int i = 0; i < array.length; i++) {
-      if (array[i] < min) {
-        min = array[i];
+  /**
+   * Searches the array for its smallest element
+   * @param arrayToSearch
+   * @return the minimum value in the array
+   */
+  public static int minArray(int[] arrayToSearch) {
+    int min = arrayToSearch[0];
+    for (int i = 0; i < arrayToSearch.length; i++) {
+      if (arrayToSearch[i] < min) {
+        min = arrayToSearch[i];
       }
     }
     return min;

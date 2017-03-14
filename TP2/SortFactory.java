@@ -2,17 +2,21 @@ public class SortFactory {
 
   public static void main(String[] args) {
   }
+  
 
   public SortStrategy createSort(String sortStrategy) {
-    SortStrategy resultSort;
-    for (Sort p : Sort.values()) {
-      if (sortStrategy.equals(p.getSortStrategy())) {
-        resultSort = p.getSortMethod();
-        return resultSort;
-      }
+    if (sortStrategy.equalsIgnoreCase(Sort.SELECTION.name())) {
+      return new SelectionSort();
+    } else if (sortStrategy.equalsIgnoreCase(Sort.BUBBLE.name())) {
+      return new BubbleSort();
+    } else if (sortStrategy.equalsIgnoreCase(Sort.MERGE.name())) {
+      return new MergeSort();
+    } else if (sortStrategy.equalsIgnoreCase(Sort.QUICK.name())) {
+      return new QuickSort();
+    } else {
+      return new QuickSort();
     }
-    System.out.println("Sorry, this sorting algorithm isn't implemented");
-    System.out.println("We'll use quick sort instead");
-    return new QuickSort();
+
+
   }
 }

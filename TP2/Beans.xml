@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="animationVariables" class="AnimationVariables">
+        <property name="minSizeInput" value="1"/>
+        <property name="maxSizeInput" value="10000"/>
+        <property name="step" value="100"/>
+        <property name="minValueInput" value="0"/>
+        <property name="maxValueInput" value="500"/>
+    </bean>
+
+</beans>
