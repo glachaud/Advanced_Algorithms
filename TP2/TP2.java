@@ -6,18 +6,6 @@ public class TP2 {
   public static void main(String args[]) {
     SortStrategy sortingMethod;
 
-    /*
-    for (Sort p : Sort.values()) {
-      sortingMethod = p.getSortMethod();
-      int[] res = RandomData.generate1d(100000, 0, 500);
-      System.out.println("Starting compilation for " + p.getSortStrategy().toString());
-      long start = System.currentTimeMillis();
-      sortingMethod.sort(res);
-      long elapsed = System.currentTimeMillis() - start;
-      System.out.println("Compilation terminated. It took " + elapsed + " ms");
-    }
-    */
-
     // Create sorting algorithm
     SortFactory sortFactory = new SortFactory();
     SortStrategy sortingAlgorithm = sortFactory.createSort("Quick Sort");
