@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{fullpage}
+\usepackage{listings}
+\usepackage[french, english]{babel}
+\usepackage{stmaryrd}
+\usepackage{fancyhdr}
+
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{tikz}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+
+\lstdefinestyle{customjava}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  xleftmargin=\parindent,
+  language=Java,
+  numbers=left,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\allowdisplaybreaks
+\setlength{\headsep}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{TP3: Graphs}
+\rhead{Guillaume Lachaud}
+\rfoot{\thepage}
+\begin{document}
+\begin{titlepage}
+    \centering
+    \vfill
+    {\bfseries\Huge
+       	Tutorial course 3: Graphs, an introduction\\
+        \vskip 1em
+        \hrule
+        \Large
+        \vskip2cm
+        \vskip1em
+        Guillaume Lachaud
+    }    
+    \vfill
+    % \includegraphics[scale=1]{isep_logo}
+    \vfill
+    \vfill
+\end{titlepage}
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+
+\section*{Manipulating graph data}
+\addcontentsline{toc}{section}{Manipulating graph data}
+
+\subsection*{Adjacency list representation of an undirected graph}
+\addcontentsline{toc}{subsection}{Adjacency list representation of an undirected
+graph}
+
+Some liberty has been taken in the implementation of the adjacency list. This
+has been done in order for the representation to be as useful as possible.
+
+\subsection*{Adjacency matrix representation of an undirected graph}
+\addcontentsline{toc}{Subsection}{Adjacency matrix representation of an
+undirected graph}
+
+As in the case of the adjacency list, some liberty has been taken in the
+implementation. 
+
+\section*{Practical application}
+\addcontentsline{toc}{section}{Practical application}
+
+Node 1 has 16 connections and Node 34 has 17 connections. They are by far the
+two nodes with the highest number of connections.
+\end{document}
