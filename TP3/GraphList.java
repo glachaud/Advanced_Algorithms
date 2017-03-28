@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -6,8 +7,32 @@ import java.util.*;
 public class GraphList<T> {
   private int nodeCount;
   private int edgeCount;
-  ArrayList<Node<T>> adj;
+  private ArrayList<Node<T>> adj;
 
+  public GraphList() throws java.io.IOException {
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("How do you want to call your graph?");
+    String file = scanner.nextLine();
+    file = "src/" + file + ".txt";
+    System.out.println("Is the graph directed? (y/n)");
+    boolean isDirectedGraph = scanner.nextLine().equals("y");
+    System.out.println("Enter the number of vertices");
+    int nodeCount = Integer.parseInt(scanner.nextLine());
+    System.out.println("Enter the number of edges");
+    int edgeCount = Integer.parseInt(scanner.nextLine());
+    PrintWriter writer = new PrintWriter(file, "UTF-8");
+    String line;
+    String splitDelimiter = " ";
+    for (int i = 0; i < edgeCount; i++) {
+      System.out.println("Enter the edges in the graph: <to> <from> <weight>(optional)");
+      line = scanner.nextLine();
+      writer.println(line);
+    }
+    writer.close();
+    scanner.close();
+    createGraph(file, splitDelimiter, isDirectedGraph);
+
+  }
 
   public GraphList(int nodeCount) {
     this.nodeCount = nodeCount;
@@ -16,6 +41,14 @@ public class GraphList<T> {
   }
 
   public GraphList(String file, String splitDelimiter) throws java.io.IOException {
+    this(file, splitDelimiter, false);
+  }
+
+  public GraphList(String file, String splitDelimiter, boolean isDirectedGraph) throws java.io.IOException {
+    createGraph(file, splitDelimiter, isDirectedGraph);
+  }
+
+  public void createGraph(String file, String splitDelimiter, boolean isDirectedGraph) throws java.io.IOException {
     Map<Node, Integer> mappingOfVertices = GraphFunctions.countNumberOfNodes(file, splitDelimiter);
     this.nodeCount = mappingOfVertices.size();
     this.adj = new ArrayList<>();
@@ -26,11 +59,11 @@ public class GraphList<T> {
       node = iterator.next();
       adj.add(node);
     }
-    fillAdjList(file, splitDelimiter);
+    fillAdjList(file, splitDelimiter, isDirectedGraph);
   }
 
 
-  public void fillAdjList(String file, String splitDelimiter) throws java.io.IOException {
+  public void fillAdjList(String file, String splitDelimiter, boolean isDirectedGraph) throws java.io.IOException {
     List<String> lines = Files.readAllLines(Paths.get(file), Charset.defaultCharset());
     String line;
     String[] edge;
@@ -38,22 +71,48 @@ public class GraphList<T> {
     Node<T> tail, head;
     Edge newEdge;
     int weight;
+    int numberOfEdges = 0;
     while (lineIterator.hasNext()) {
       line = lineIterator.next();
-      line = line.replaceAll("\" ","-");
-      line = line.replaceAll("\"","");
+      line = line.replaceAll("\" ", "-");
+      line = line.replaceAll("\"", "");
       edge = line.split(splitDelimiter);
       tail = this.getNode((T) edge[0]);
       head = this.getNode((T) edge[1]);
       weight = 1;
-      if (edge.length  == 3) {
+      if (edge.length == 3) {
         edge[2] = edge[2].replaceAll("^\"|\"$", "");
         weight = Integer.parseInt(edge[2]);
       }
       newEdge = new Edge(tail, head, weight);
       adj.get(adj.indexOf(tail)).addEdge(newEdge);
-      adj.get(adj.indexOf(head)).addEdge(newEdge);
+      numberOfEdges++;
+      if (!isDirectedGraph) {
+        adj.get(adj.indexOf(head)).addEdge(newEdge);
+        numberOfEdges++;
+      }
     }
+    this.edgeCount = numberOfEdges;
+  }
+
+  public void addNode(Node node) {
+    adj.add(node);
+    nodeCount++;
+  }
+
+  public void addEdge(Node u, Node v) {
+    addWeightedEdge(u, v, 1);
+  }
+
+  public void addWeightedEdge(Node u, Node v, int weight) {
+    Edge newEdge = new Edge(u, v, weight);
+    if (adj.indexOf(u) > -1 && adj.indexOf(v) > -1) {
+      adj.get(adj.indexOf(u)).addEdge(newEdge);
+      edgeCount++;
+    } else {
+      System.out.println("This edge couldn't be added to the graph");
+    }
+
   }
 
   public Node getNode(T nodeName) {
@@ -89,6 +148,17 @@ public class GraphList<T> {
     return nodeNeighbors;
   }
 
+  public void printGraph() {
+    Iterator<Node<T>> firstIterator = adj.iterator();
+    Node nodePasser;
+    while (firstIterator.hasNext()) {
+      nodePasser = firstIterator.next();
+      System.out.print(nodePasser.getNodeName() + ": ");
+      System.out.println(Arrays.toString(getNodeNeighbors(nodePasser)));
+    }
+
+  }
+
 
   public int getNodeCount() {
     return nodeCount;
@@ -103,15 +173,9 @@ public class GraphList<T> {
   }
 
   public static void main(String[] args) throws java.io.IOException {
-    GraphList graph = new GraphList("src/karate_weighted.txt", "-");
-    Iterator<Node> firstIterator = graph.getAdjList().iterator();
-    Node nodePasser;
-    while (firstIterator.hasNext()) {
-      nodePasser = firstIterator.next();
-      System.out.print(nodePasser.getNodeName() + ": ");
-      System.out.println(Arrays.toString(graph.getNodeNeighbors(nodePasser)));
-      // System.out.println(graph.getNodeNeighbors(nodePasser).length);
-      // System.out.println("----------------------------------------------");
-    }
+    GraphList graph = new GraphList("src/graph.txt", " ");
+    graph.printGraph();
+    GraphList graph2 = new GraphList();
+    graph2.printGraph();
   }
 }

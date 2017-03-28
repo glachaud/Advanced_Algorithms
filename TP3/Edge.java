@@ -4,9 +4,7 @@ public class Edge {
   int weight;
 
   public Edge(Node u, Node v) {
-    this.tail = u;
-    this.head = v;
-    this.weight = 1;
+    this(u,v,1);
   }
 
   public Edge(Node u, Node v, int weight) {
