@@ -148,6 +148,7 @@ public class GraphList<T> {
     return nodeNeighbors;
   }
 
+
   public void printGraph() {
     Iterator<Node<T>> firstIterator = adj.iterator();
     Node nodePasser;
@@ -175,7 +176,9 @@ public class GraphList<T> {
   public static void main(String[] args) throws java.io.IOException {
     GraphList graph = new GraphList("src/karate_weighted.txt", "-");
     graph.printGraph();
-    //GraphList graph2 = new GraphList();
-    //graph2.printGraph();
+    /*
+    GraphList graph2 = new GraphList();
+    graph2.printGraph();
+    */
   }
 }

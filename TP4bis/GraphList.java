@@ -148,6 +148,7 @@ public class GraphList<T> {
     return nodeNeighbors;
   }
 
+
   public void printGraph() {
     Iterator<Node<T>> firstIterator = adj.iterator();
     Node nodePasser;
@@ -157,6 +158,21 @@ public class GraphList<T> {
       System.out.println(Arrays.toString(getNodeNeighbors(nodePasser)));
     }
 
+  }
+
+  public ArrayList<Edge> getAllEdges(){
+    ArrayList<Edge> graphEdges = new ArrayList<>();
+    Iterator<Node<T>> nodeIterator = adj.iterator();
+    while(nodeIterator.hasNext()){
+      Node nodeIteration = nodeIterator.next();
+      Iterator<Edge> edgeIterator = nodeIteration.getNeighbors().iterator();
+      while(edgeIterator.hasNext()){
+        Edge edgeIteration = edgeIterator.next();
+        graphEdges.add(edgeIteration);
+      }
+    }
+
+    return graphEdges;
   }
 
 
@@ -175,7 +191,9 @@ public class GraphList<T> {
   public static void main(String[] args) throws java.io.IOException {
     GraphList graph = new GraphList("src/karate_weighted.txt", "-");
     graph.printGraph();
-    //GraphList graph2 = new GraphList();
-    //graph2.printGraph();
+    /*
+    GraphList graph2 = new GraphList();
+    graph2.printGraph();
+    */
   }
 }

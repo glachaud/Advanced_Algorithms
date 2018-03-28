@@ -145,7 +145,7 @@ public class GraphMatrix {
   }
 
   public static void main(String[] args) throws java.io.IOException {
-    GraphMatrix graph = new GraphMatrix("src/karate.txt", " ");
+    GraphMatrix graph = new GraphMatrix("src/graph.txt", " ");
     int[][] intAdjMatrix = graph.getIntAdjMatrix();
     for (int i = 0; i < graph.getV(); i++) {
       System.out.println(Arrays.toString(intAdjMatrix[i]));
